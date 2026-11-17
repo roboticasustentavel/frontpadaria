@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f4ee">
+  <title>Padaria do Amor | Estoque</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <main id="login-screen" class="login-shell">
+    <section class="login-card">
+      <div class="brand-mark">P<span>+</span></div>
+      <p class="eyebrow">PADARIA DO AMOR</p>
+      <h1>Bom ter você<br>por aqui.</h1>
+      <p class="muted">Entre para acompanhar o estoque da sua padaria.</p>
+      <form id="login-form" class="form-stack">
+        <label>E-mail<input id="login-email" type="email" autocomplete="username" value="alvaro@padaria.com.br" required></label>
+        <label>Senha<input id="login-password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required></label>
+        <button class="btn btn-primary btn-wide" type="submit">Entrar no sistema <span>→</span></button>
+        <p id="login-error" class="form-error" aria-live="polite"></p>
+      </form>
+      <div class="login-foot"><span class="status-dot"></span> Acesso protegido</div>
+    </section>
+    <aside class="login-art">
+      <div class="art-copy">
+        <span class="art-kicker">GESTÃO SIMPLES, DIA A DIA LEVE</span>
+        <h2>Seu estoque<br>em boas mãos.</h2>
+        <p>Organize insumos, acompanhe movimentações e mantenha sua produção sempre em ritmo.</p>
+      </div>
+      <div class="bread-illustration" aria-hidden="true">🥖</div>
+      <span class="art-note">Feito para cuidar de cada detalhe.</span>
+    </aside>
+  </main>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand"><div class="brand-mark small">P<span>+</span></div><div><strong>Padaria do Amor</strong><small>PAINEL DE ESTOQUE</small></div></div>
+      <nav class="nav-menu" aria-label="Menu principal">
+        <button class="nav-link active" data-view="dashboard"><span class="nav-icon">▦</span> Visão geral</button>
+        <button class="nav-link" data-view="products"><span class="nav-icon">▤</span> Produtos</button>
+        <button class="nav-link" data-view="movements"><span class="nav-icon">⇄</span> Movimentações</button>
+        <button class="nav-link" data-view="alerts"><span class="nav-icon">♧</span> Alertas de estoque</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><span class="help-icon">✳</span><strong>Um estoque saudável<br>faz a diferença.</strong><small>Acompanhe seus níveis e evite surpresas na produção.</small></div>
+        <button id="logout-btn" class="logout-btn"><span>↪</span> Sair da conta</button>
+      </div>
+    </aside>
+
+    <section class="main-area">
+      <header class="topbar">
+        <button id="menu-toggle" class="icon-btn mobile-only" aria-label="Abrir menu">☰</button>
+        <div class="breadcrumb">Estoque <span>/</span> <strong id="breadcrumb-current">Visão geral</strong></div>
+        <div class="topbar-right"><span class="today-label" id="today-label"></span><div class="avatar">A</div><div class="user-meta"><strong id="user-email">Administrador</strong><small>Administrador</small></div></div>
+      </header>
+
+      <div class="content">
+        <section id="view-dashboard" class="view">
+          <div class="page-heading">
+            <div><p class="eyebrow">RESUMO DA OPERAÇÃO</p><h1>Visão geral</h1><p class="muted">Aqui está o panorama do seu estoque hoje.</p></div>
+            <button class="btn btn-primary" data-action="new-product">＋ Novo produto</button>
+          </div>
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-top"><span>Produtos cadastrados</span><span class="stat-icon peach">▤</span></div><strong id="stat-products">—</strong><small>Itens no catálogo</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Quantidade em estoque</span><span class="stat-icon sage">▥</span></div><strong id="stat-quantity">—</strong><small>Soma das quantidades</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Estoque baixo</span><span class="stat-icon yellow">⌁</span></div><strong id="stat-low">—</strong><small>Precisam de atenção</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Sem estoque</span><span class="stat-icon rose">!</span></div><strong id="stat-zero">—</strong><small>Itens zerados</small></article>
+          </div>
+          <div class="section-grid">
+            <article class="panel">
+              <div class="panel-heading"><div><h2>Movimentações recentes</h2><p>Últimas entradas e saídas registradas</p></div><button class="text-btn" data-view="movements">Ver histórico →</button></div>
+              <div id="recent-movements" class="table-wrap"><div class="empty-state">Carregando movimentações...</div></div>
+            </article>
+            <article class="panel alert-panel">
+              <div class="panel-heading"><div><h2>Precisam de reposição</h2><p>Produtos no limite ou abaixo dele</p></div><span class="soft-count" id="alert-count">0</span></div>
+              <div id="dashboard-alerts" class="alert-list"><div class="empty-state">Carregando alertas...</div></div>
+              <button class="btn btn-light btn-wide" data-view="alerts">Ver todos os alertas</button>
+            </article>
+          </div>
+        </section>
+
+        <section id="view-products" class="view hidden">
+          <div class="page-heading"><div><p class="eyebrow">CATÁLOGO</p><h1>Produtos</h1><p class="muted">Gerencie os ingredientes e insumos da padaria.</p></div><button class="btn btn-primary" data-action="new-product">＋ Novo produto</button></div>
+          <article class="panel">
+            <div class="toolbar"><div class="search-box"><span>⌕</span><input id="product-search" type="search" placeholder="Buscar produto..."></div><span id="products-count" class="muted small-text"></span></div>
+            <div id="products-table" class="table-wrap"><div class="empty-state">Carregando produtos...</div></div>
+          </article>
+        </section>
+
+        <section id="view-movements" class="view hidden">
+          <div class="page-heading"><div><p class="eyebrow">ENTRADAS E SAÍDAS</p><h1>Movimentações</h1><p class="muted">Acompanhe tudo o que entra e sai do estoque.</p></div><div class="heading-actions"><button class="btn btn-light" data-action="new-exit">− Registrar saída</button><button class="btn btn-primary" data-action="new-entry">＋ Registrar entrada</button></div></div>
+          <article class="panel">
+            <div class="toolbar movement-filters">
+              <select id="movement-type"><option value="">Todos os tipos</option><option value="entrada">Entradas</option><option value="saida">Saídas</option></select>
+              <input id="movement-start" type="date" aria-label="Data inicial">
+              <input id="movement-end" type="date" aria-label="Data final">
+              <button id="filter-movements" class="btn btn-light">Filtrar</button>
+            </div>
+            <div id="movements-table" class="table-wrap"><div class="empty-state">Carregando histórico...</div></div>
+          </article>
+        </section>
+
+        <section id="view-alerts" class="view hidden">
+          <div class="page-heading"><div><p class="eyebrow">ATENÇÃO AO ESTOQUE</p><h1>Alertas de estoque</h1><p class="muted">Veja o que precisa ser reposto para manter a produção.</p></div><button class="btn btn-primary" data-action="new-entry">＋ Registrar entrada</button></div>
+          <div class="alert-summary"><div><span class="alert-big" id="alerts-low-total">—</span><span>Produtos abaixo do mínimo</span></div><div><span class="alert-big danger" id="alerts-zero-total">—</span><span>Produtos sem estoque</span></div></div>
+          <article class="panel"><div class="panel-heading"><div><h2>Itens para acompanhar</h2><p>Saldo atual comparado ao estoque mínimo</p></div></div><div id="alerts-table" class="table-wrap"><div class="empty-state">Carregando alertas...</div></div></article>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <dialog id="modal" class="modal">
+    <form id="modal-form" method="dialog">
+      <div class="modal-head"><div><p class="eyebrow" id="modal-eyebrow">ESTOQUE</p><h2 id="modal-title">Novo registro</h2></div><button type="button" class="icon-btn" id="modal-close" aria-label="Fechar">×</button></div>
+      <div id="modal-fields" class="modal-fields"></div>
+      <p id="modal-error" class="form-error" aria-live="polite"></p>
+      <div class="modal-actions"><button type="button" class="btn btn-light" id="modal-cancel">Cancelar</button><button type="submit" class="btn btn-primary" id="modal-submit">Salvar</button></div>
+    </form>
+  </dialog>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
