@@ -2,7 +2,7 @@
   "use strict";
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
-  const state = { token: localStorage.getItem("padaria_token") || "", api: "https://backpadaria.vercel.app" || "http://localhost:3000", user: null, products: [], movements: [], low: [], zero: [], view: "dashboard" };
+  const state = { token: localStorage.getItem("padaria_token") || "", api: "https://backpadaria.vercel.app/" || "http://localhost:3000", user: null, products: [], movements: [], low: [], zero: [], view: "dashboard" };
   const units = ["kg", "litros", "unidades"];
   const icons = { trigo:"🌾", fermento:"🧫", óleo:"🫒", oleo:"🫒", manteiga:"🧈", leite:"🥛", ovo:"🥚", sal:"🧂", açúcar:"🍚", acucar:"🍚" };
   const apiUrl = path => `${state.api.replace(/\/+$/, "")}${path}`;
